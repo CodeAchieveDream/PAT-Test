@@ -39,6 +39,8 @@ NO
 代码如下：
 
 -------------------华丽的分割现-----------------------------------
+
+
 import java.util.*;
 public class PAT_1003{
 	public static void main(String[] args){
