@@ -1,0 +1,57 @@
+
+PAT--1007 
+
+让我们定义 dn 为：dn = pn+1 - pn，其中 pi 是第i个素数。显然有 d1=1 且对于n>1有 dn 是偶数。“素数对猜想”认为“存在无穷多对相邻且差为2的素数”。
+
+现给定任意正整数N (< 105)，请计算不超过N的满足猜想的素数对的个数。
+
+输入格式：每个测试输入包含1个测试用例，给出正整数N。
+
+输出格式：每个测试用例的输出占一行，不超过N的满足猜想的素数对的个数。
+
+输入样例：
+20
+输出样例：
+4
+
+解题的思路如下：
+首先，题目要求计算给定范围的素数对，
+那么，步骤课分为如下：
+1.判断当前数是否为素数，
+2.是素数的话，判断此素数+2后是否为素数；不是的话不做操作，继续循环
+3.如果+2后还是素数，则对计数器+1
+4.输出计数值
+
+------------华丽的分割线-------------------
+
+import java.math.*;
+import java.util.*;
+
+public class Main {
+  public static void main(String[] args){
+    int n,count=0,i,j;
+    Scanner scn=new Scanner(System.in);
+    n=scn.nextInt();
+    for(i=2;i<=n-2;i++){
+      for(j=2;j<Math.sqrt(i);j++){
+        if(i%j==0){
+          break;
+        }
+      }
+      if(j>Math.sqrt(i)){
+        for(j=2;j<Math.sqrt(i+2);j++){
+          if((i+2)%j==0){
+            break;
+          }
+        }
+        if(j>Math.sqrt(i+2)){
+          count++;
+        }
+      }
+    }
+    System.out.println(count);
+  }
+}
+
+2017.5.31 -- 22：53
+
