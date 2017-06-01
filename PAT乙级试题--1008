@@ -1,0 +1,119 @@
+
+数组元素循环右移问题 (20)
+
+一个数组A中存有N（N>0）个整数，在不允许使用另外数组的前提下，将每个整数循环向右移M（M>=0）个位置，即将A中的数据由（A0 A1……AN-1）变换为（AN-M …… AN-1 A0 A1……AN-M-1）（最后M个数循环移至最前面的M个位置）。如果需要考虑程序移动数据的次数尽量少，要如何设计移动的方法？
+
+输入格式：每个输入包含一个测试用例，第1行输入N ( 1<=N<=100)、M（M>=0）；第2行输入N个整数，之间用空格分隔。
+
+输出格式：在一行中输出循环右移M位以后的整数序列，之间用空格分隔，序列结尾不能有多余空格。
+
+输入样例：
+6 2
+1 2 3 4 5 6
+输出样例：
+5 6 1 2 3 4
+
+本题目是要实现数组的移动，开始我的思路是从第一开始移动，保存第二个的值，然后用第一个的值覆盖第二个的值，在进行循环，直至整个数组都移动了一遍，
+但是发现这样做很复杂，而且还不一定能成功，所以我就装变了思路，用两种方法去实现它：
+方法一：
+1.先保存最后一个的值
+2.将倒数第二个值移动到最后一个，依次移动，直至第一个值移动到第二个位置
+3.用已保存的最后一个的值，填到第一个位置
+4.完成一遍移动后，在进行循环，直至达到题目的要求
+
+方法二：
+运用数据结构的知识，通过单链表的方式实现，此方法大大的减少的移动的次数，
+1.将指针移动到倒数第二的位置，
+2.通过next找到最后一个位置，
+3.将最后的节点的指针指向第一个元素，
+4.头结点的指针指向最后的节点，
+5.设置倒数第二个节点的指针为空
+6.完成一遍移动后，循环，直至达到题目的要求
+
+----------------六.一 儿童节 代码分割线-----------
+方法一：
+
+import java.util.*;
+public class Main{
+           public static void main(String[] args){
+    int n,m,flag,temp;
+    int[] s;
+    Scanner scn=new Scanner(System.in);
+    n=scn.nextInt();
+    m=scn.nextInt();
+    s=new int[n];
+    for(int i=0;i<s.length;i++){
+      s[i]=scn.nextInt();
+    }
+    flag=m;
+    if(flag>=m){
+      flag=flag%n;
+    }
+    for(int i=0;i<flag;i++){
+      temp=s[s.length-1];
+      for(int j=s.length-2;j>=0;j--){
+        s[j+1]=s[j];
+      }
+      s[0]=temp;
+    }
+    for(int i=0;i<s.length;i++){
+      System.out.print(s[i]);
+      if(i!=s.length-1){
+        System.out.print(" ");
+      }
+    }
+  }
+}
+
+方法二：
+
+import java.util.*;
+
+class node{
+  public int x;
+  public node next;
+}
+
+public class Main{
+  public static void main(String[] args){
+    int n,m;
+    node This,h,head=new node();
+    head.next=new node();
+    Scanner scn=new Scanner(System.in);
+    n=scn.nextInt();
+    m=scn.nextInt();
+    if(m>n){
+      m=m%n;
+    }
+    This=head.next;
+    for(int i=0;i<n;i++){
+      This.x=scn.nextInt();
+      if(i!=n-1){
+         This.next=new node();
+         This=This.next;
+      }
+    }
+    This=null;
+    for(int j=0;j<m;j++){
+      for(This=head.next;This.next.next!=null;This=This.next);
+      h=This.next;
+      h.next=head.next;
+      head.next=h;
+      This.next=null;
+    }
+    This=head.next;
+    for(int i=0;i<n;i++){
+        System.out.print(This.x);
+        if(i!=n-1){
+          System.out.print(" ");
+        }
+        This=This.next;
+    }
+  }
+}
+
+
+2017.6.1  19:23
+
+
+
