@@ -1,0 +1,48 @@
+
+给定一句英语，要求你编写程序，将句中所有单词的顺序颠倒输出。
+
+输入格式：测试输入包含一个测试用例，在一行内给出总长度不超过80的字符串。字符串由若干单词和若干空格组成，其中单词是由英文字母（大小写有区分）组成的字符串，单词之间用1个空格分开，输入保证句子末尾没有多余的空格。
+
+输出格式：每个测试用例的输出占一行，输出倒序后的句子。
+
+输入样例：
+Hello World Here I Come
+输出样例：
+Come I Here World Hello
+
+解题思路：
+1.首先记录下所有空格的下标，使用函数求下标处的字符：char str.charAt(int index),判断其是否为空格。 
+2.使用Java中求子串的函数：String str.substring(int index_begin,int index_end),该函数为begin但是不包含下标为end的字符，
+通过已经记录的空格的下标便可得到所要的串
+3.控制串格式，在输出
+
+------------------2017.6.1----代码分割线------------------
+
+import java.util.*;
+public class PAT_1009 {
+	public static void main(String[] args){
+		String s=new String();
+		int f1,f2;
+		int[] index=new int[80];
+		int count=0;
+		Scanner scn=new Scanner(System.in);
+		s=scn.nextLine();
+		for(int i=0;i<s.length();i++){
+			if(s.charAt(i)==' '){
+				index[count]=i;
+				count++;
+			}
+		}
+		f2=s.length();
+		for(int i=count-1;i>=0;i--){
+			f1=index[i];
+			System.out.print(s.substring(f1+1,f2));
+			System.out.print(" ");
+			f2=f1;
+		}
+		System.out.print(s.substring(0,f2));
+	}
+}
+
+-----------------20：38
+
