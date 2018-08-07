@@ -1,0 +1,54 @@
+1017 A除以B（20 分）
+本题要求计算 A/B，其中 A 是不超过 1000 位的正整数，B 是 1 位正整数。你需要输出商数 Q 和余数 R，使得 A=B×Q+R 成立。
+
+输入格式：
+输入在一行中依次给出 A 和 B，中间以 1 空格分隔。
+
+输出格式：
+在一行中依次输出 Q 和 R，中间以 1 空格分隔。
+
+输入样例：
+123456789050987654321 7
+输出样例：
+17636684150141093474 3
+
+
+---------------------------------------------
+
+#include<iostream>
+#include<string.h>
+using namespace std;
+
+int main(){
+	int y1,x,b1=0,a1,count=0;
+	char y[10000],a[1000000];
+	cin>>y;
+	cin>>x;
+	for(int i=0;i<500;i++){
+		a[i]='0';
+	} 
+	int len=strlen(y);
+	if(len==1 && y[0]-48<x){
+		cout<<"0 "<<y[0];
+		return 0;
+	}
+	for(int i=0;i<len;i++){
+		y1=y[i]-48;
+		y1=y1+10*b1;
+		b1=y1%x;
+		a1=(y1-b1)/x;
+		a[count]=a1+48;
+		count++;
+	}
+	int flag=0;
+	for(int i=0;i<count;i++){
+		if(a[i]!='0'){
+			flag=1;
+		}
+		if(flag!=0){
+			cout<<a[i];
+		}
+	}
+	cout<<" "<<b1;
+} 
+
