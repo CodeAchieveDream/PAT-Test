@@ -1,0 +1,108 @@
+1016 部分A+B（15 分）
+正整数 A 的“D
+​A
+​​ （为 1 位整数）部分”定义为由 A 中所有 D
+​A
+​​  组成的新整数 P
+​A
+​​ 。例如：给定 A=3862767，D
+​A
+​​ =6，则 A 的“6 部分”P
+​A
+​​  是 66，因为 A 中有 2 个 6。
+
+现给定 A、D
+​A
+​​ 、B、D
+​B
+​​ ，请编写程序计算 P
+​A
+​​ +P
+​B
+​​ 。
+
+输入格式：
+输入在一行中依次给出 A、D
+​A
+​​ 、B、D
+​B
+​​ ，中间以空格分隔，其中 0<A,B<10
+​10
+​​ 。
+
+输出格式：
+在一行中输出 P
+​A
+​​ +P
+​B
+​​  的值。
+
+输入样例 1：
+3862767 6 13530293 3
+输出样例 1：
+399
+输入样例 2：
+3862767 1 13530293 8
+输出样例 2：
+0
+
+====================================================
+#include<iostream>
+#include<stdio.h>
+#include<math.h>
+using namespace std;
+
+int main(){
+	int sum;
+	char da,db;
+	int daa,dbb;
+	long long pa=0,pb=0;
+	int count1=0,count2=0;
+	char a[11],b[11];
+	scanf("%s %c %s %c",a,&da,b,&db);
+	for(int i=0;i<11;i++){
+		if(a[i]!='\0'){
+			if(a[i]==da){
+				count1++;
+			}
+		}
+		if(b[i]!='\0'){
+			if(b[i]==db){
+				count2++;
+			}
+		}
+	}
+	daa=da-48;
+	dbb=db-48;
+	while(count1>0 || count2>0){
+		if(count1>0){
+			pa=pa+daa*pow(10,count1-1);
+		}
+		if(count2>0){
+			pb=pb+dbb*pow(10,count2-1);
+		}
+		count1--;
+		count2--;
+	}
+	pa=pa+pb;
+	cout<<pa;
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
