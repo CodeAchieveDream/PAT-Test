@@ -1,0 +1,105 @@
+1033 旧键盘打字（20 分）
+旧键盘上坏了几个键，于是在敲一段文字的时候，对应的字符就不会出现。现在给出应该输入的一段文字、以及坏掉的那些键，打出的结果文字会是怎样？
+
+输入格式：
+输入在 2 行中分别给出坏掉的那些键、以及应该输入的文字。其中对应英文字母的坏键以大写给出；每段文字是不超过 10
+​5
+​​  个字符的串。可用的字符包括字母 [a-z, A-Z]、数字 0-9、以及下划线 _（代表空格）、,、.、-、+（代表上档键）。题目保证第 2 行输入的文字串非空。
+
+注意：如果上档键坏掉了，那么大写的英文字母无法被打出。
+
+输出格式：
+在一行中输出能够被打出的结果文字。如果没有一个字符能被打出，则输出空行。
+
+输入样例：
+7+IE.
+7_This_is_a_test.
+输出样例：
+_hs_s_a_tst
+
+
+------------------------------------
+
+#include<stdio.h>
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+int main(){
+	char a[100000],b[100000],c[100000];
+	int bigchar=0;
+	int flag=0,count=0;
+	scanf("%s\n%s",&a,&b);
+	for(int i=0;a[i]!='\0';i++){
+		if(a[i]=='+'){
+			bigchar=1;
+			break;
+		}
+	}
+	for(int i=0;b[i]!='\0';i++){
+		if(bigchar==1){
+			if('A'>b[i] || b[i]>'Z'){
+				if('a'<=b[i] && b[i]<='z'){
+					for(int j=0;a[j]!='\0';j++){
+						if( b[i]==a[j] || b[i]==( a[j]+('a'-'A')) ){
+							flag=1;
+							break;
+						}
+					}
+					if(flag==0){
+						c[count++]=b[i];
+					}else{
+						flag=0;
+					}	
+				}else{
+					for(int j=0;a[j]!='\0';j++){
+					if(b[i]==a[j]){
+						flag=1;
+						break;
+					}
+					}
+					if(flag==0){
+						c[count++]=b[i];
+					}else{
+						flag=0;
+					}
+				}
+			}
+		}else{
+			if( ('a'<=b[i] && b[i]<='z') || ('A'<=b[i] && b[i]<='Z') ){
+				for(int j=0;a[j]!='\0';j++){
+					if( b[i]==a[j] || b[i]==(a[j]+('a'-'A')) ){
+						flag=1;
+						break;
+					}
+				}
+				if(flag==0){
+					c[count++]=b[i];
+				}else{
+					flag=0;
+				}	
+			}else{
+				for(int j=0;a[j]!='\0';j++){
+					if(b[i]==a[j]){
+						flag=1;
+						break;
+					}
+				}
+				if(flag==0){
+					c[count++]=b[i];
+				}else{
+					flag=0;
+				}
+			} 	
+		}
+	}
+	if(count==0){
+		cout<<"\n";
+	}else{
+		cout<<c;
+	} 
+}
+
+
+
+
